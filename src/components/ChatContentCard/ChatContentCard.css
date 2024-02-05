@@ -1,0 +1,22 @@
+.senderBox {
+  display: flex;
+  justify-content: start;
+}
+.initiatorBox {
+  display: flex;
+  justify-content: end;
+}
+.chat-content-card {
+  box-shadow: none;
+  padding: 7px 10px;
+  border-radius: 10px;
+}
+.chat-content-card.sender {
+  background-color: var(--color-light-step-2);
+}
+.chat-content-card.initiator {
+  background-color: var(--color-yellow);
+}
+.chat-content-card ion-text {
+  color: var(--color-dark);
+}

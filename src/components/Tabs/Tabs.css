@@ -1,0 +1,10 @@
+ion-tab-button {
+  --color: var(--color-light-step-1);
+  --color-selected: var(--color-dark);
+}
+.modal-btn {
+  --background: var(--color-dark);
+  --box-shadow: 0;
+  --border-radius: 20px;
+  text-transform: capitalize;
+}

@@ -1,0 +1,46 @@
+ion-modal#example-modal {
+  --border-radius: 16px;
+  --background: transparent !important;
+}
+ion-modal .modal-content {
+  display: flex;
+  flex-direction: column;
+}
+.modal-handle {
+  display: none;
+}
+ion-modal .modal-content .cancel-btn {
+  --background: var(--color-light-step-2);
+  --box-shadow: 0;
+  --border-radius: 20px;
+  --color: var(--color-dark);
+  text-transform: capitalize;
+  width: 130px;
+  min-height: 40px;
+  margin: 2px auto;
+}
+ion-modal .modal-card {
+  background: var(--color-white);
+  border-radius: 12px;
+  padding: 5px 0;
+  margin: 0 20px;
+}
+ion-modal .modal-card ion-item {
+  padding: 5px 0;
+}
+ion-modal .modal-content .ion-box {
+  display: flex;
+  align-items: center;
+  padding-right: 15px;
+}
+ion-modal .modal-content .ion-box ion-icon {
+  font-size: var(--font-size-xl);
+}
+ion-modal .card-title {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+}
+ion-modal .card-decription {
+  font-size: var(--font-size-sm);
+  color: var(--color-light-step-1);
+}

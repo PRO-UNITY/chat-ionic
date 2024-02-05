@@ -1,0 +1,5 @@
+.create-room .search-input {
+  --background: var(--color-light-step-2);
+  --box-shadow: none;
+  --border-radius: 20px;
+}

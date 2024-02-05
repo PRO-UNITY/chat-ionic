@@ -1,0 +1,36 @@
+.chat-screen ion-icon {
+  font-size: var(--icon_sm);
+}
+.chat-screen a {
+  color: var(--color-dark);
+}
+.chat-screen ion-avatar {
+  width: 55px;
+  height: 55px;
+}
+.chat-screen .ion-header ion-col,
+.chat-screen ion-footer ion-col {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.chat-screen .ion-header h5 {
+  margin: 0;
+}
+.chat-screen .ion-header .status {
+  font-size: var(--font-size-sm);
+}
+.chat-screen .ion-header .call-box {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+ion-footer .sentInput {
+  --background: var(--color-light-step-2);
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --border-radius: 20px;
+  --placeholder-opacity: 0.4;
+  --border: 0;
+  --highlight-color-focused: transparent;
+}

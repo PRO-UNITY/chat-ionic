@@ -1,0 +1,50 @@
+.home .ion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.home ion-text h4 {
+  color: var(--color-dark);
+  margin: 10px 0 0;
+}
+.home .ion-content {
+  --padding-top: var(--spacing-lg);
+}
+.home ion-card {
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: va;
+}
+.home .chat-room {
+  margin-top: var(--spacing-lg);
+}
+.home ion-text h5 {
+  margin: 0;
+}
+.home .icon {
+  font-size: var(--font-size-xl);
+}
+.home .title {
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+}
+.home .story-box {
+  overflow-x: auto;
+}
+.home .story-box ion-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-dark);
+  font-family: var(--primary-font);
+}
+.home .add-story {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-light-step-1);
+  border-style: dashed;
+}
+.home .add-story ion-icon {
+  font-size: var(--font-size-2xl);
+  color: var(--color-light-step-1);
+}
