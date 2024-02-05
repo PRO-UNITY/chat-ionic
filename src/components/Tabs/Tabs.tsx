@@ -21,7 +21,7 @@ const Tabs = () => {
     <>
       <IonTabs>
         <IonRouterOutlet>
-          <Route path={"/tab/Home"} component={Home} />
+          <Route exact path={"/tab/Home"} component={Home} />
           <Route exact path={"/"}>
             <Redirect to="/tab/Home" />
           </Route>

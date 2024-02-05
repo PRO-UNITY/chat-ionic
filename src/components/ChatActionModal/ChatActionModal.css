@@ -1,0 +1,39 @@
+ion-modal#chat-action-modal {
+  --border-radius: 16px;
+  --background: transparent !important;
+}
+ion-modal .modal-content {
+  display: flex;
+  flex-direction: column;
+}
+ion-modal .modal-card {
+  background: var(--color-white);
+  border-radius: 12px;
+  margin: 10px 20px;
+  padding: 0px 17px;
+}
+ion-modal .modal-card ion-item {
+  --padding-start: 0;
+}
+ion-modal .card-title {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+}
+.reaction-box {
+  overflow-x: auto;
+  display: flex;
+}
+.react-text {
+  font-size: 30px;
+}
+ion-modal ion-card {
+  box-shadow: none;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  background: var(--color-light-step-2);
+  padding: 10px;
+  border-radius: 10px;
+}
+ion-modal ion-card ion-text {
+  color: var(--color-dark);
+}

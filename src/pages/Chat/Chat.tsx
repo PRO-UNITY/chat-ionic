@@ -62,7 +62,6 @@ const Chat = () => {
       </IonHeader>
       <IonContent className="ion-padding">
         <ChatContent text="Hello" type="sender" />
-        <ChatContent text="Hi dear" type="initeator" />
       </IonContent>
       <IonFooter>
         <IonGrid>
