@@ -1,34 +1,25 @@
-import {
-  IonAvatar,
-  IonCard,
-  IonCol,
-  IonItem,
-  IonRow,
-  IonText,
-} from "@ionic/react";
-
-const ChatRoomCard = () => {
+import { IonAvatar, IonCard, IonCol, IonRow, IonText } from "@ionic/react";
+interface propData {
+  receiver: string;
+}
+const ChatRoomCard = (props: propData) => {
+  const { receiver } = props;
   return (
-    <IonCard style={{ width: "100%" }}>
+    <IonCard className="user-card">
       <IonRow>
         <IonCol size="auto">
           <IonAvatar>
             <img
-              alt="Silhouette of a person's head"
-              src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp"
+              alt="avatar"
+              src="https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Photos.png"
             />
           </IonAvatar>
         </IonCol>
-        <IonCol>
-          <IonText>
-            <h4>John Doe</h4>
-          </IonText>
-          <IonText>Lorem, ipsum.</IonText>
+        <IonCol className="card-text">
+          <IonText className="name">{receiver}</IonText>
         </IonCol>
         <IonCol size="auto">
-          <IonText>
-            <p>12:00</p>
-          </IonText>
+          <IonText>12:00</IonText>
         </IonCol>
       </IonRow>
     </IonCard>

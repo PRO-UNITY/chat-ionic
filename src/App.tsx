@@ -29,7 +29,7 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <TabBar />
-      <Route exact path="/chat" component={Chat} />
+      <Route exact path="/chat/:id" component={Chat} />
       <Route exact path="/create-room" component={CreateRoom} />
     </IonReactRouter>
   </IonApp>

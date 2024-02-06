@@ -1,12 +1,39 @@
-.create-room .search-input {
-  --background: var(--color-light-step-2);
-  --box-shadow: none;
-  --border-radius: 20px;
+.create-room ion-header {
+  display: flex;
+  align-items: center;
 }
 .create-room ion-icon {
   font-size: var(--icon-md);
 }
+.create-room ion-item {
+  padding-top: var(--spacing-sx);
+}
+.create-room .card-text {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.create-room .card-text .email {
+  font-size: var(--font-size-sm);
+  color: var(--color-light-step-1);
+}
 .create-room ion-col {
   display: flex;
   align-items: center;
+}
+.create-room ion-avatar {
+  width: 50px;
+  height: 50px;
+}
+.create-room .data {
+  font-size: var(--font-size-sm);
+}
+.create-room .dot {
+  color: var(--color-yellow);
+  font-size: var(--font-size-sm);
+}
+.create-room .search-input {
+  --background: var(--color-light-step-2);
+  --box-shadow: none;
+  --border-radius: 20px;
+  font-family: var(--primary-font);
 }

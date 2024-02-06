@@ -3,9 +3,26 @@
   justify-content: space-between;
   align-items: center;
 }
-.home ion-text h4 {
+.home ion-col {
+  display: flex;
+  align-items: center;
+}
+.home .user-card {
+  width: 100%;
+}
+.home .user-card ion-avatar {
+  width: 55px;
+  height: 55px;
+}
+.home .card-text {
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+.home .card-text .name {
+  font-size: var(--font-size-lg);
   color: var(--color-dark);
-  margin: 10px 0 0;
+  font-weight: 500;
 }
 .home .ion-content {
   --padding-top: var(--spacing-lg);

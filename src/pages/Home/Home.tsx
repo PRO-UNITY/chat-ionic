@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   IonAvatar,
   IonCard,
@@ -12,15 +13,27 @@ import {
   useIonRouter,
 } from "@ionic/react";
 import { addOutline, ellipsisHorizontal, searchOutline } from "ionicons/icons";
-import "./Home.css";
 import { ChatRoomCard, StoryAvatar } from "../../components";
+import { ChatMembers } from "../../services";
+import "./Home.css";
+
+interface ChatRoom {
+  id: number;
+  initiator: string;
+  receiver: string;
+}
 
 const Home = () => {
   const navigation = useIonRouter();
+  const [members, setMembers] = useState([]);
 
   const navigateHandle = (path: string) => {
     navigation.push(path, "forward", "replace");
   };
+
+  useEffect(() => {
+    ChatMembers().then((res) => setMembers(res));
+  }, [navigation.routeInfo.pathname]);
 
   return (
     <IonPage className="ion-padding home">
@@ -53,9 +66,14 @@ const Home = () => {
               <IonIcon aria-hidden="true" icon={ellipsisHorizontal} />
             </IonCol>
           </IonRow>
-          <IonRow onClick={() => navigateHandle("/chat")}>
-            <ChatRoomCard />
-          </IonRow>
+          {members.map((item: ChatRoom) => (
+            <IonRow
+              onClick={() => navigateHandle(`/chat/${item.id}`)}
+              key={item.id}
+            >
+              <ChatRoomCard {...item} />
+            </IonRow>
+          ))}
         </IonGrid>
       </IonContent>
     </IonPage>

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import {
   IonAvatar,
   IonCol,
@@ -22,13 +24,45 @@ import {
 } from "ionicons/icons";
 import { ChatContent } from "../../components";
 import "./Chat.css";
-import { useState } from "react";
+import { ChatMsgs } from "../../services";
 
 const Chat = () => {
   const navigation = useIonRouter();
+  const { id } = useParams<{ id: string }>();
   const [sendData, setSendData] = useState<string>("");
+  const [messages, setMessages] = useState([]);
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3MjE2ODQyLCJpYXQiOjE3MDcyMTM4NDIsImp0aSI6IjFmMzJhY2E4MDVlZDRlMThhNmUxZWY5MGYxZTJkNjdiIiwidXNlcl9pZCI6MX0.4zhtOKiI38w4oxhHeiGfxRs9t0mcOPVSQSWzzCF3Mu4";
+  useEffect(() => {
+    const messageSocket = new WebSocket(
+      `ws://192.168.0.114:9000/ws/message/${id}/`
+    );
 
-  console.log(sendData);
+    messageSocket.onopen = () => {
+      console.log("Connected to server to get messages");
+    };
+
+    messageSocket.onmessage = (event) => {
+      const receivedMessage = JSON.parse(event.data);
+      console.log(receivedMessage);
+    };
+
+    return () => {
+      messageSocket.close();
+    };
+  }, [id]);
+
+  const sendMessage = () => {
+    if (sendData.trim() !== "") {
+      const chatSocket = new WebSocket(
+        `ws://192.168.0.114:9000/ws/chat/${id}/`
+      );
+      chatSocket.onopen = () => {
+        chatSocket.send(JSON.stringify({ message: sendData }));
+      };
+    }
+  };
+
   const handleBack = () => navigation.goBack();
 
   return (
@@ -43,7 +77,7 @@ const Chat = () => {
               <IonAvatar>
                 <img
                   alt="avatar"
-                  src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp"
+                  src="https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Photos.png"
                 />
               </IonAvatar>
             </IonCol>
@@ -66,7 +100,7 @@ const Chat = () => {
         <ChatContent text="Hello" type="sender" />
         <ChatContent text="Hello" type="sender" />
       </IonContent>
-      <IonFooter className="ion-padding">
+      <IonFooter className="ion-padding-horizontal">
         <IonGrid>
           <IonRow>
             <IonCol size="auto">
@@ -76,10 +110,11 @@ const Chat = () => {
               <IonInput
                 className="sentInput"
                 placeholder="New chat"
+                value={sendData}
                 onIonInput={(event) => setSendData(event.detail.value || "")}
               ></IonInput>
             </IonCol>
-            <IonCol size="auto">
+            <IonCol size="auto" onClick={sendMessage}>
               {sendData ? (
                 <IonIcon icon={send} />
               ) : (
