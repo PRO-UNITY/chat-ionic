@@ -3,3 +3,10 @@
   --box-shadow: none;
   --border-radius: 20px;
 }
+.create-room ion-icon {
+  font-size: var(--icon-md);
+}
+.create-room ion-col {
+  display: flex;
+  align-items: center;
+}

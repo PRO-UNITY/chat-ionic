@@ -14,7 +14,8 @@
   box-shadow: none;
   display: flex;
   flex-direction: column;
-  gap: va;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
 }
 .home .chat-room {
   margin-top: var(--spacing-lg);
@@ -31,6 +32,7 @@
 }
 .home .story-box {
   overflow-x: auto;
+  gap: var(--spacing-sx);
 }
 .home .story-box ion-text {
   font-size: var(--font-size-sm);

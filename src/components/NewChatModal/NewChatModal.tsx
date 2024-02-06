@@ -14,17 +14,20 @@ import {
   readerOutline,
 } from "ionicons/icons";
 interface ModalDataProp {
-  modal: any;
+  isOpenModal: boolean;
+  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const NewChatModal = (props: ModalDataProp) => {
-  const { modal } = props;
+  const { isOpenModal, setIsOpenModal } = props;
+  console.log(isOpenModal);
   return (
     <IonModal
-      ref={modal}
+      isOpen={isOpenModal}
+      animated
       id="example-modal"
-      trigger="open-modal"
       initialBreakpoint={0.3}
+      onClick={() => setIsOpenModal(false)}
     >
       <div className="modal-content">
         <div className="modal-card">
@@ -71,10 +74,7 @@ const NewChatModal = (props: ModalDataProp) => {
             </IonRow>
           </IonItem>
         </div>
-        <IonButton
-          onClick={() => modal.current.dismiss()}
-          className="cancel-btn"
-        >
+        <IonButton onClick={() => setIsOpenModal(false)} className="cancel-btn">
           Cancel
         </IonButton>
       </div>

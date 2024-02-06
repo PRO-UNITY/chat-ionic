@@ -1,7 +1,6 @@
 import {
   IonButton,
   IonIcon,
-  IonModal,
   IonRouterOutlet,
   IonTabBar,
   IonTabButton,
@@ -13,25 +12,29 @@ import { addOutline, homeOutline, personOutline } from "ionicons/icons";
 import { Home } from "../../pages";
 import "./Tabs.css";
 import NewChatModal from "../NewChatModal/NewChatModal";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
-const Tabs = () => {
+const TabBar = () => {
   const modal = useRef<HTMLIonModalElement>(null);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   return (
     <>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path={"/tab/Home"} component={Home} />
-          <Route exact path={"/"}>
-            <Redirect to="/tab/Home" />
+          <Route exact={true} path="/home" component={Home} />
+          <Route exact path="/">
+            <Redirect to="/home" />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="Home" href="/tab/Home">
+          <IonTabButton tab="Home" href="/home">
             <IonIcon aria-hidden="true" icon={homeOutline} />
           </IonTabButton>
-          <IonTabButton tab="Chat" href="/tab/Home">
-            <IonButton className="modal-btn" id="open-modal">
+          <IonTabButton tab="Chat" href="/home">
+            <IonButton
+              className="modal-btn"
+              onClick={() => setIsOpenModal(true)}
+            >
               <IonIcon aria-hidden="true" icon={addOutline} />
               <IonText> New chat</IonText>
             </IonButton>
@@ -41,9 +44,9 @@ const Tabs = () => {
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
-      <NewChatModal modal={modal} />
+      <NewChatModal setIsOpenModal={setIsOpenModal} isOpenModal={isOpenModal} />
     </>
   );
 };
 
-export default Tabs;
+export default TabBar;

@@ -1,8 +1,5 @@
 .chat-screen ion-icon {
-  font-size: var(--icon_sm);
-}
-.chat-screen a {
-  color: var(--color-dark);
+  font-size: var(--icon-sm);
 }
 .chat-screen ion-avatar {
   width: 50px;
@@ -24,7 +21,6 @@
   display: flex;
   gap: var(--spacing-sx);
 }
-
 ion-footer .sentInput {
   --background: var(--color-light-step-2);
   --padding-start: 15px;
@@ -33,4 +29,7 @@ ion-footer .sentInput {
   --placeholder-opacity: 0.4;
   --border: 0;
   --highlight-color-focused: transparent;
+}
+.chat-screen ion-footer ion-icon {
+  font-size: var(--icon-lg);
 }

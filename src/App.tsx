@@ -1,7 +1,6 @@
 import { Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import { IonApp, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import "./index.css";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -21,19 +20,17 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { Tabs } from "./components";
-import { Chat, CreateRoom } from "./pages";
+import { Chat, CreateRoom, Home } from "./pages";
+import { TabBar } from "./components";
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/" component={Tabs} />
-        <Route path="/chat" component={Chat} />
-        <Route path="/create-room" component={CreateRoom} />
-      </IonRouterOutlet>
+      <TabBar />
+      <Route exact path="/chat" component={Chat} />
+      <Route exact path="/create-room" component={CreateRoom} />
     </IonReactRouter>
   </IonApp>
 );

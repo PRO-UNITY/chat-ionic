@@ -18,16 +18,16 @@ import {
 } from "ionicons/icons";
 import "./ChatActionModal.css";
 interface ModalDataProp {
-  modalChat: any;
-}
+  isOpenModal: boolean;
+  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+} 
 
 const ChatActionModal = (props: ModalDataProp) => {
-  const { modalChat } = props;
+  const { isOpenModal } = props;
   return (
     <IonModal
-      ref={modalChat}
+      isOpen={isOpenModal}
       id="chat-action-modal"
-      trigger="chat-action-modal"
       initialBreakpoint={0.5}
     >
       <div className="modal-content">

@@ -1,6 +1,6 @@
 import { IonCard, IonText } from "@ionic/react";
 import "./ChatContentCard.css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import ChatActionModal from "../ChatActionModal/ChatActionModal";
 interface ChatDataProp {
   text: string;
@@ -8,11 +8,12 @@ interface ChatDataProp {
 }
 const ChatContentCard = (props: ChatDataProp) => {
   const { text, type } = props;
-  const modalChat = useRef<HTMLIonModalElement>(null);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+
   return (
     <>
       <div
-        id="chat-action-modal"
+        onClick={() => setIsOpenModal(true)}
         className={`${type == "sender" ? "senderBox" : "initiatorBox"}`}
       >
         <IonCard
@@ -23,7 +24,10 @@ const ChatContentCard = (props: ChatDataProp) => {
           <IonText>{text}</IonText>
         </IonCard>
       </div>
-      <ChatActionModal modalChat={modalChat} />
+      <ChatActionModal
+        setIsOpenModal={setIsOpenModal}
+        isOpenModal={isOpenModal}
+      />
     </>
   );
 };

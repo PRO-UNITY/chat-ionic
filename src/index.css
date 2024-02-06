@@ -7,8 +7,9 @@
   --color-light-step-1: #878787;
   --color-light-step-2: #efefef;
   /* Icons */
+  --icon-lg: 27px;
   --icon-md: 24px;
-  --icon_sm: 22px;
+  --icon-sm: 22px;
   --icon-xsm: 16px;
   /* Font size */
   --font-size-2xl: 26px;
