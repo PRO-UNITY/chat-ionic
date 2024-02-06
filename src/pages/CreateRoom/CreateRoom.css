@@ -37,3 +37,6 @@
   --border-radius: 20px;
   font-family: var(--primary-font);
 }
+.create-room .loading {
+  margin: 0 auto;
+}

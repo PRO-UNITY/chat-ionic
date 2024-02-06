@@ -33,3 +33,6 @@ ion-footer .sentInput {
 .chat-screen ion-footer ion-icon {
   font-size: var(--icon-lg);
 }
+.chat-screen .loading {
+  margin: 0 auto;
+}

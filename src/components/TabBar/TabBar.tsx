@@ -30,16 +30,16 @@ const TabBar = () => {
           <IonTabButton tab="Home" href="/home">
             <IonIcon aria-hidden="true" icon={homeOutline} />
           </IonTabButton>
-          <IonTabButton tab="Chat" href="/home">
+          <IonTabButton tab="Chat" href="/create-room">
             <IonButton
               className="modal-btn"
-              onClick={() => setIsOpenModal(true)}
+              // onClick={() => setIsOpenModal(true)}
             >
               <IonIcon aria-hidden="true" icon={addOutline} />
               <IonText> New chat</IonText>
             </IonButton>
           </IonTabButton>
-          <IonTabButton tab="User-profile" href="/tab/user-profile">
+          <IonTabButton tab="User-profile" href="/user-profile">
             <IonIcon aria-hidden="true" icon={personOutline} />
           </IonTabButton>
         </IonTabBar>

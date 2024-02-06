@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams } from "react-router";
 import {
   IonAvatar,
@@ -11,6 +11,7 @@ import {
   IonInput,
   IonPage,
   IonRow,
+  IonSpinner,
   IonText,
   useIonRouter,
 } from "@ionic/react";
@@ -25,51 +26,64 @@ import {
 import { ChatContent } from "../../components";
 import "./Chat.css";
 import { ChatMsgs } from "../../services";
+import { TOKEN } from "../../utils/BaseUrl";
+
 interface ChatData {
   id: number;
   initiator: string;
+  receiver: string;
 }
+
 const Chat = () => {
   const navigation = useIonRouter();
   const { id } = useParams<{ id: string }>();
   const [sendData, setSendData] = useState<string>("");
+  const [data, setData] = useState<ChatData>();
   const [messages, setMessages] = useState([]);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3MjIwNzA1LCJpYXQiOjE3MDcyMTc3MDUsImp0aSI6IjgzYWE3MjkxM2JiMTQ5Y2FhNmEzY2M4MWY3MTI5YWUzIiwidXNlcl9pZCI6MX0.vADgR7seiOYa5QpvNhwrOUr09ZEDpR-o_38RCsi4rK8";
+  const [loading, setloading] = useState<boolean>(false);
+  const contentRef = useRef<HTMLIonContentElement>(null);
+
+  useMemo(() => {
+    setloading(true);
+    ChatMsgs(id)
+      .then((res) => {
+        setData(res);
+        setMessages(res?.message_set.reverse());
+      })
+      .finally(() => setloading(false));
+  }, [id]);
+
   useEffect(() => {
-    ChatMsgs(id).then((res) => setMessages(res));
     const messageSocket = new WebSocket(
-      `ws://192.168.0.114:9000/ws/message/${id}/?token=${token}`
+      `ws://143.198.26.245:8000/ws/message/${id}/?token=${TOKEN}`
     );
-
-    messageSocket.onopen = () => {
-      console.log("Connected to server to get messages");
-    };
-
     messageSocket.onmessage = (event) => {
       const receivedMessage = JSON.parse(event.data);
-      console.log(receivedMessage);
-    };
-
-    return () => {
-      messageSocket.close();
+      setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+      scrollToBottom();
     };
   }, [id]);
 
   const sendMessage = () => {
     if (sendData.trim() !== "") {
       const chatSocket = new WebSocket(
-        `ws://192.168.0.114:9000/ws/chat/${id}/?token=${token}`
+        `ws://143.198.26.245:8000/ws/chat/${id}/?token=${token}`
       );
       chatSocket.onopen = () => {
         chatSocket.send(JSON.stringify({ message: sendData }));
+        setSendData("");
       };
     }
   };
 
   const handleBack = () => navigation.goBack();
 
-  console.log(messages);
+  const scrollToBottom = () => {
+    if (contentRef.current) {
+      contentRef.current.scrollToBottom();
+    }
+  };
+
   return (
     <IonPage className="chat-screen">
       <IonHeader className="ion-header ion-no-border ion-padding">
@@ -88,7 +102,7 @@ const Chat = () => {
             </IonCol>
             <IonCol>
               <IonText>
-                <h5>John Doe</h5>
+                <h5>{data?.receiver}</h5>
               </IonText>
               <IonText className="status">Online</IonText>
             </IonCol>
@@ -101,8 +115,18 @@ const Chat = () => {
           </IonRow>
         </IonGrid>
       </IonHeader>
-      <IonContent className="ion-padding" fullscreen></IonContent>
-      <IonFooter className="ion-padding-horizontal">
+      <IonContent ref={contentRef} className="ion-padding">
+        {loading && (
+          <IonSpinner name="crescent" className="loading"></IonSpinner>
+        )}
+        {messages?.map((item, index) => (
+          <ChatContent key={index} {...item} />
+        ))}
+      </IonContent>
+      <IonFooter
+        className="ion-padding-horizontal"
+        style={{ background: "#fff" }}
+      >
         <IonGrid>
           <IonRow>
             <IonCol size="auto">

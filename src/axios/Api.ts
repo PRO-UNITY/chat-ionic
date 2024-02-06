@@ -1,13 +1,12 @@
 import axios from "axios";
-import { BASE_URL } from "../utils/BaseUrl";
+import { BASE_URL, TOKEN } from "../utils/BaseUrl";
 
 export const api = axios.create({
   baseURL: BASE_URL,
 });
 api.interceptors.request.use(
   async (config) => {
-    const authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3MjIwNzA1LCJpYXQiOjE3MDcyMTc3MDUsImp0aSI6IjgzYWE3MjkxM2JiMTQ5Y2FhNmEzY2M4MWY3MTI5YWUzIiwidXNlcl9pZCI6MX0.vADgR7seiOYa5QpvNhwrOUr09ZEDpR-o_38RCsi4rK8";
+    const authToken = TOKEN;
     if (authToken) {
       config.headers.Authorization = authToken;
     }

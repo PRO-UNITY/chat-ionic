@@ -1,1 +1,4 @@
-export const BASE_URL = "http://192.168.0.114:9000";
+export const BASE_URL = "http://143.198.26.245:8000";
+
+export const TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3MjM1NjE1LCJpYXQiOjE3MDcyMzI2MTUsImp0aSI6IjRiOTdkN2ZiOTlhYzQ2ODk5ZTQxNTc4YWM1MmRlZjY5IiwidXNlcl9pZCI6MX0.ipDPSfxq-oahkCBe5C_awBEKDHh5AatinlaPvEao9Co";

@@ -2,9 +2,12 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
+  IonItem,
   IonPage,
   IonRow,
   IonSearchbar,
+  IonSpinner,
+  IonText,
   useIonRouter,
 } from "@ionic/react";
 import "./CreateRoom.css";
@@ -26,6 +29,7 @@ const CreateRoom = () => {
   const navigation = useIonRouter();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState(false);
 
   const handleBack = () => navigation.goBack();
 
@@ -33,14 +37,22 @@ const CreateRoom = () => {
     setLoading(true);
     const searchValue = (e.target as any).value;
     SearchChatMember(searchValue)
-      .then((res) => setUsers(res))
-      .catch((err) => console.log(err))
+      .then((res) => {
+        setUsers(res);
+        setError(false);
+      })
+      .catch((err) => {
+        setError(true);
+        setUsers([]);
+      })
       .finally(() => setLoading(false));
   };
   const createMemberHandle = (e: any) => {
+    setLoading(true);
     CreateChatMembers({ username: e })
       .then(() => handleBack())
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -54,6 +66,16 @@ const CreateRoom = () => {
         />
       </IonHeader>
       <IonContent fullscreen>
+        {loading && (
+          <IonItem className="loading-box">
+            <IonSpinner name="crescent" className="loading"></IonSpinner>
+          </IonItem>
+        )}
+        {error && (
+          <IonText color={"danger"} className="ion-text-center">
+            <p>User not found</p>
+          </IonText>
+        )}
         {users.map((item: User) => (
           <IonRow
             onClick={() => createMemberHandle(item.username)}

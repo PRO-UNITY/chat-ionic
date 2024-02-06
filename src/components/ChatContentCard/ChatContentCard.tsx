@@ -4,21 +4,23 @@ import { useRef, useState } from "react";
 import ChatActionModal from "../ChatActionModal/ChatActionModal";
 interface ChatDataProp {
   text: string;
-  type: string;
+  sender_type: string;
 }
 const ChatContentCard = (props: ChatDataProp) => {
-  const { text, type } = props;
+  const { text, sender_type } = props;
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   return (
     <>
       <div
         onClick={() => setIsOpenModal(true)}
-        className={`${type == "sender" ? "senderBox" : "initiatorBox"}`}
+        className={`${
+          sender_type == "receiver" ? "senderBox" : "initiatorBox"
+        }`}
       >
         <IonCard
           className={`chat-content-card ${
-            type == "sender" ? "sender" : "initiator"
+            sender_type == "receiver" ? "sender" : "initiator"
           }`}
         >
           <IonText>{text}</IonText>
