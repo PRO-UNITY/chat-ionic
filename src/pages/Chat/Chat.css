@@ -36,3 +36,11 @@ ion-footer .sentInput {
 .chat-screen .loading {
   margin: 0 auto;
 }
+.chat-screen .chat-content {
+  --padding-bottom: 50px !important;
+}
+.chat-screen .chat-content ion-card {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  max-width: 250px;
+}

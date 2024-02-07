@@ -20,7 +20,7 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { Chat, CreateRoom, Home } from "./pages";
+import { Chat, CreateRoom, SignIn, SignUp } from "./pages";
 import { TabBar } from "./components";
 
 setupIonicReact();
@@ -31,6 +31,8 @@ const App: React.FC = () => (
       <TabBar />
       <Route exact path="/chat/:id" component={Chat} />
       <Route exact path="/create-room" component={CreateRoom} />
+      <Route exact path="/auth/sign-up" component={SignUp} />
+      <Route exact path="/auth/sign-in" component={SignIn} />
     </IonReactRouter>
   </IonApp>
 );

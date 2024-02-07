@@ -1,9 +1,10 @@
 import { IonAvatar, IonCard, IonCol, IonRow, IonText } from "@ionic/react";
 interface propData {
   receiver: string;
+  sender_type: string;
 }
 const ChatRoomCard = (props: propData) => {
-  const { receiver } = props;
+  const { receiver, sender_type } = props;
   return (
     <IonCard className="user-card">
       <IonRow>
@@ -16,7 +17,7 @@ const ChatRoomCard = (props: propData) => {
           </IonAvatar>
         </IonCol>
         <IonCol className="card-text">
-          <IonText className="name">{receiver}</IonText>
+          <IonText className="name">{sender_type}</IonText>
         </IonCol>
         <IonCol size="auto">
           <IonText>12:00</IonText>

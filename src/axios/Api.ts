@@ -1,12 +1,15 @@
 import axios from "axios";
-import { BASE_URL, TOKEN } from "../utils/BaseUrl";
+import { BASE_URL } from "../utils/BaseUrl";
+import { getToken } from "../storage";
+import { useHistory } from "react-router-dom"; // ionic-da ishlatish
 
 export const api = axios.create({
   baseURL: BASE_URL,
 });
+
 api.interceptors.request.use(
   async (config) => {
-    const authToken = TOKEN;
+    const authToken = await getToken();
     if (authToken) {
       config.headers.Authorization = authToken;
     }
@@ -23,6 +26,7 @@ api.interceptors.response.use(
   },
   async (error) => {
     if (error.response && error.response.status === 401) {
+      console.log("log out");
     }
     return Promise.reject(error);
   }

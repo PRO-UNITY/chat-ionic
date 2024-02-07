@@ -34,3 +34,6 @@ a {
 ion-text {
   font-family: var(--primary-font);
 }
+.error-text {
+  color: red !important;
+}

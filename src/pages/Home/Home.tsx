@@ -16,11 +16,13 @@ import { addOutline, ellipsisHorizontal, searchOutline } from "ionicons/icons";
 import { ChatRoomCard, StoryAvatar } from "../../components";
 import { ChatMembers } from "../../services";
 import "./Home.css";
+import { getToken, storage } from "../../storage";
 
 interface ChatRoom {
   id: number;
   initiator: string;
   receiver: string;
+  sender_type: string;
 }
 
 const Home = () => {

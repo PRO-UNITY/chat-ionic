@@ -5,9 +5,10 @@ import ChatActionModal from "../ChatActionModal/ChatActionModal";
 interface ChatDataProp {
   text: string;
   sender_type: string;
+  type: string;
 }
 const ChatContentCard = (props: ChatDataProp) => {
-  const { text, sender_type } = props;
+  const { text, type, sender_type } = props;
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   return (

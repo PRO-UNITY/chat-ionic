@@ -8,3 +8,7 @@ ion-tab-button {
   --border-radius: 20px;
   text-transform: capitalize;
 }
+ion-tab-button .log-out ion-icon {
+  color: red;
+  font-size: 25px;
+}

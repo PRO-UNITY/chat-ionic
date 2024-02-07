@@ -8,7 +8,7 @@ import {
   IonText,
 } from "@ionic/react";
 import { Redirect, Route } from "react-router";
-import { addOutline, homeOutline, personOutline } from "ionicons/icons";
+import { addOutline, homeOutline, logOutOutline } from "ionicons/icons";
 import { Home } from "../../pages";
 import "./Tabs.css";
 import NewChatModal from "../NewChatModal/NewChatModal";
@@ -21,7 +21,7 @@ const TabBar = () => {
     <>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact={true} path="/home" component={Home} />
+          <Route exact path="/home" component={Home} />
           <Route exact path="/">
             <Redirect to="/home" />
           </Route>
@@ -39,8 +39,10 @@ const TabBar = () => {
               <IonText> New chat</IonText>
             </IonButton>
           </IonTabButton>
-          <IonTabButton tab="User-profile" href="/user-profile">
-            <IonIcon aria-hidden="true" icon={personOutline} />
+          <IonTabButton tab="Log-out" href="auth/sign-in">
+            <IonButton fill="clear" className="log-out">
+              <IonIcon icon={logOutOutline} />
+            </IonButton>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

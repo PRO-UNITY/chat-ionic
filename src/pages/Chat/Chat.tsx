@@ -26,20 +26,27 @@ import {
 import { ChatContent } from "../../components";
 import "./Chat.css";
 import { ChatMsgs } from "../../services";
-import { TOKEN } from "../../utils/BaseUrl";
+import { getToken } from "../../storage";
 
 interface ChatData {
-  id: number;
-  initiator: string;
-  receiver: string;
+  sender_type: string;
 }
-
+interface ChatMessage {
+  id: number;
+  is_read: boolean;
+  sender: string;
+  sender_type: string;
+  text: string;
+  timestamp: string;
+  type: string;
+}
+const Token = await getToken();
 const Chat = () => {
   const navigation = useIonRouter();
   const { id } = useParams<{ id: string }>();
   const [sendData, setSendData] = useState<string>("");
   const [data, setData] = useState<ChatData>();
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setloading] = useState<boolean>(false);
   const contentRef = useRef<HTMLIonContentElement>(null);
 
@@ -55,19 +62,23 @@ const Chat = () => {
 
   useEffect(() => {
     const messageSocket = new WebSocket(
-      `ws://143.198.26.245:8000/ws/message/${id}/?token=${TOKEN}`
+      `ws://192.168.0.114:9000/ws/message/${id}/?token=${Token}`
     );
     messageSocket.onmessage = (event) => {
       const receivedMessage = JSON.parse(event.data);
+      console.log(receivedMessage);
       setMessages((prevMessages) => [...prevMessages, receivedMessage]);
       scrollToBottom();
+    };
+    return () => {
+      messageSocket.close();
     };
   }, [id]);
 
   const sendMessage = () => {
     if (sendData.trim() !== "") {
       const chatSocket = new WebSocket(
-        `ws://143.198.26.245:8000/ws/chat/${id}/?token=${token}`
+        `ws://192.168.0.114:9000/ws/chat/${id}/?token=${Token}`
       );
       chatSocket.onopen = () => {
         chatSocket.send(JSON.stringify({ message: sendData }));
@@ -102,7 +113,7 @@ const Chat = () => {
             </IonCol>
             <IonCol>
               <IonText>
-                <h5>{data?.receiver}</h5>
+                <h5>{data?.sender_type}</h5>
               </IonText>
               <IonText className="status">Online</IonText>
             </IonCol>
