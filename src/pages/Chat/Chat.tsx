@@ -62,7 +62,7 @@ const Chat = () => {
 
   useEffect(() => {
     const messageSocket = new WebSocket(
-      `ws://192.168.0.114:9000/ws/message/${id}/?token=${Token}`
+      `ws://143.198.26.245:8000/ws/message/${id}/?token=${Token}`
     );
     messageSocket.onmessage = (event) => {
       const receivedMessage = JSON.parse(event.data);
@@ -78,7 +78,7 @@ const Chat = () => {
   const sendMessage = () => {
     if (sendData.trim() !== "") {
       const chatSocket = new WebSocket(
-        `ws://192.168.0.114:9000/ws/chat/${id}/?token=${Token}`
+        `ws://143.198.26.245:8000/ws/chat/${id}/?token=${Token}`
       );
       chatSocket.onopen = () => {
         chatSocket.send(JSON.stringify({ message: sendData }));
