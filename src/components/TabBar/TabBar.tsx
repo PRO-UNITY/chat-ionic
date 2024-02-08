@@ -21,15 +21,7 @@ const TabBar = () => {
   const navigation = useIonRouter();
   const modal = useRef<HTMLIonModalElement>(null);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = await getToken();
-      if (!token && !token?.access) {
-        navigation.push("/auth/sign-in", "forward", "push");
-      }
-    };
-    fetchData();
-  }, []);
+
   return (
     <>
       <IonTabs>

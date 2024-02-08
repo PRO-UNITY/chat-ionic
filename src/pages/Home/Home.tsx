@@ -24,6 +24,7 @@ import {
 import { ChatRoomCard, StoryAvatar } from "../../components";
 import { ChatMembers } from "../../services";
 import "./Home.css";
+import { getToken } from "../../storage";
 
 interface ChatRoom {
   id: number;
@@ -51,6 +52,17 @@ const Home = () => {
     ChatMembers().then((res) => setMembers(res));
   }, [navigation.routeInfo.pathname]);
 
+  const fetchData = async () => {
+    await getToken().then((res) => {
+      if (!res && !res?.access) {
+        navigation.push("/auth/sign-in", "forward", "replace");
+      }
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <IonPage className="ion-padding home">
       <IonHeader className="ion-header ion-no-border ion-margin-top">
