@@ -25,8 +25,11 @@ const SignIn: React.FC = () => {
     username: "",
     password: "",
   });
-  const handleInputChange = (field: string, event: string) => {
-    let value = event?.target?.value;
+  const handleInputChange = (
+    field: string,
+    event: CustomEvent<KeyboardEvent>
+  ) => {
+    let value = (event.target as HTMLInputElement).value;
     setSignInData((prevData) => ({ ...prevData, [field]: value }));
   };
 
@@ -35,9 +38,9 @@ const SignIn: React.FC = () => {
     SignInUser(signInData)
       .then(async (res) => {
         navigation.push("/home", "forward", "pop");
-        storage.set("token", res?.access);
+        storage.set("token", res);
       })
-      .catch((err) => setError(true))
+      .catch(() => setError(true))
       .finally(() => setloading(false));
   };
 
@@ -50,7 +53,6 @@ const SignIn: React.FC = () => {
             <IonText>Let's create an for you account</IonText>
           </IonRow>
           <IonRow className="input-box">
-            {/* TextField components for username and password */}
             <TextField
               value={signInData.username}
               placeholder={"Username"}

@@ -20,7 +20,6 @@ interface ModalDataProp {
 
 const NewChatModal = (props: ModalDataProp) => {
   const { isOpenModal, setIsOpenModal } = props;
-  console.log(isOpenModal);
   return (
     <IonModal
       isOpen={isOpenModal}

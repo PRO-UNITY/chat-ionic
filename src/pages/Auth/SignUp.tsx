@@ -12,9 +12,10 @@ import {
   useIonRouter,
 } from "@ionic/react";
 import { chatbubbleEllipses } from "ionicons/icons";
-import "./Auth.css";
 import { TextField } from "../../components";
 import { SignUpUser } from "../../services";
+import { storage } from "../../storage";
+import "./Auth.css";
 
 const SignUp: React.FC = () => {
   const navigation = useIonRouter();
@@ -27,8 +28,11 @@ const SignUp: React.FC = () => {
     confirm_password: "",
   });
 
-  const handleInputChange = (field: string, event: string) => {
-    const value = event?.target?.value;
+  const handleInputChange = (
+    field: string,
+    event: CustomEvent<KeyboardEvent>
+  ) => {
+    let value = (event.target as HTMLInputElement).value;
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
   const isFormValid = () => {
@@ -39,7 +43,7 @@ const SignUp: React.FC = () => {
     setloading(true);
     SignUpUser(formData)
       .then(async (res) => {
-        localStorage.setItem("token", res?.access);
+        storage.set("token", res);
         navigation.push("/home", "forward", "pop");
       })
       .catch(() => setError(true))
@@ -93,7 +97,7 @@ const SignUp: React.FC = () => {
               {loading ? (
                 <IonSpinner color={"dark"} name="crescent" />
               ) : (
-                <IonText className="btn-text">Sign In</IonText>
+                <IonText className="btn-text">Sign Up</IonText>
               )}
             </IonButton>
             <IonCol className="text-wrapp">

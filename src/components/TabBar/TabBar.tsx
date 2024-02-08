@@ -6,17 +6,30 @@ import {
   IonTabButton,
   IonTabs,
   IonText,
+  useIonRouter,
 } from "@ionic/react";
 import { Redirect, Route } from "react-router";
 import { addOutline, homeOutline, logOutOutline } from "ionicons/icons";
 import { Home } from "../../pages";
 import "./Tabs.css";
 import NewChatModal from "../NewChatModal/NewChatModal";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import LogOutModal from "../LogOutModal/LogOutModal";
+import { getToken } from "../../storage";
 
 const TabBar = () => {
+  const navigation = useIonRouter();
   const modal = useRef<HTMLIonModalElement>(null);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = await getToken();
+      if (!token && !token?.access) {
+        navigation.push("/auth/sign-in", "forward", "push");
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <IonTabs>
@@ -39,10 +52,8 @@ const TabBar = () => {
               <IonText> New chat</IonText>
             </IonButton>
           </IonTabButton>
-          <IonTabButton tab="Log-out" href="auth/sign-in">
-            <IonButton fill="clear" className="log-out">
-              <IonIcon icon={logOutOutline} />
-            </IonButton>
+          <IonTabButton tab="Log-out">
+            <LogOutModal />
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

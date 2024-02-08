@@ -29,7 +29,7 @@ const CreateRoom = () => {
   const navigation = useIonRouter();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({ text: "", isShowError: false });
 
   const handleBack = () => navigation.goBack();
 
@@ -39,19 +39,25 @@ const CreateRoom = () => {
     SearchChatMember(searchValue)
       .then((res) => {
         setUsers(res);
-        setError(false);
+        setError({ text: "", isShowError: false });
       })
-      .catch((err) => {
-        setError(true);
+      .catch(() => {
+        setError({ text: "User not found", isShowError: true });
         setUsers([]);
       })
       .finally(() => setLoading(false));
   };
+
   const createMemberHandle = (e: any) => {
     setLoading(true);
     CreateChatMembers({ username: e })
-      .then(() => handleBack())
-      .catch((err) => console.log(err))
+      .then(() => {
+        handleBack();
+        setError({ text: "", isShowError: false });
+      })
+      .catch(() =>
+        setError({ text: "Conversation already exists", isShowError: true })
+      )
       .finally(() => setLoading(false));
   };
 
@@ -71,9 +77,9 @@ const CreateRoom = () => {
             <IonSpinner name="crescent" className="loading"></IonSpinner>
           </IonItem>
         )}
-        {error && (
+        {error.isShowError && (
           <IonText color={"danger"} className="ion-text-center">
-            <p>User not found</p>
+            <p>{error?.text}</p>
           </IonText>
         )}
         {users.map((item: User) => (

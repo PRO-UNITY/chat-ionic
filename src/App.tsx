@@ -1,5 +1,5 @@
-import { Route } from "react-router-dom";
-import { IonApp, setupIonicReact } from "@ionic/react";
+import { Route, useHistory } from "react-router-dom";
+import { IonApp, setupIonicReact, useIonRouter } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 
 /* Core CSS required for Ionic components to work properly */
@@ -22,19 +22,23 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import { Chat, CreateRoom, SignIn, SignUp } from "./pages";
 import { TabBar } from "./components";
+import { getToken, storage } from "./storage";
+import { useEffect } from "react";
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <TabBar />
-      <Route exact path="/chat/:id" component={Chat} />
-      <Route exact path="/create-room" component={CreateRoom} />
-      <Route exact path="/auth/sign-up" component={SignUp} />
-      <Route exact path="/auth/sign-in" component={SignIn} />
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <TabBar />
+        <Route path="/chat/:id" component={Chat} />
+        <Route exact path="/create-room" component={CreateRoom} />
+        <Route exact path="/auth/sign-up" component={SignUp} />
+        <Route exact path="/auth/sign-in" component={SignIn} />
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;

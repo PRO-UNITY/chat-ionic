@@ -3,8 +3,8 @@ import "./TextField.css";
 
 interface TextFieldProps {
   placeholder?: string;
-  value: any;
-  onIonInput: any;
+  value: string;
+  onIonInput?: (event: CustomEvent<KeyboardEvent>) => void; // Adjusted the type
 }
 
 const TextField: React.FunctionComponent<TextFieldProps> = (props) => {
@@ -13,6 +13,7 @@ const TextField: React.FunctionComponent<TextFieldProps> = (props) => {
     <>
       <IonInput
         value={value}
+        // @ts-ignore
         onIonInput={onIonInput}
         className="text-field"
         placeholder={placeholder}

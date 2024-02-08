@@ -1,6 +1,9 @@
 .chat-screen ion-icon {
   font-size: var(--icon-sm);
 }
+.chat-screen ion-footer {
+  border-top: 1px solid var(--color-light-step-2);
+}
 .chat-screen ion-avatar {
   width: 50px;
   height: 50px;
@@ -28,7 +31,8 @@ ion-footer .sentInput {
   --border-radius: 20px;
   --placeholder-opacity: 0.4;
   --border: 0;
-  --highlight-color-focused: transparent;
+  --highlight-color-focused: none;
+  font-family: var(--primary-font);
 }
 .chat-screen ion-footer ion-icon {
   font-size: var(--icon-lg);

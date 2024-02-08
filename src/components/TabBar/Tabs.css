@@ -1,4 +1,7 @@
 ion-tab-button {
+  background: #fff;
+}
+ion-tab-button {
   --color: var(--color-light-step-1);
   --color-selected: var(--color-dark);
 }
@@ -6,6 +9,7 @@ ion-tab-button {
   --background: var(--color-dark);
   --box-shadow: 0;
   --border-radius: 20px;
+  min-height: 20px;
   text-transform: capitalize;
 }
 ion-tab-button .log-out ion-icon {

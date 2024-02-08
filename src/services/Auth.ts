@@ -9,3 +9,9 @@ export const SignInUser = async (data: any) => {
   const response = await axios.post(`${BASE_URL_AUTH}auth/sigin`, data);
   return response.data;
 };
+export const GetAccessToken = async (token: string) => {
+  const response = await axios.post(`${BASE_URL_AUTH}auth/token/refresh/`, {
+    refresh: token,
+  });
+  return response.data;
+};

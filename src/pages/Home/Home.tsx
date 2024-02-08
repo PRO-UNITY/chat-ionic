@@ -8,15 +8,22 @@ import {
   IonHeader,
   IonIcon,
   IonPage,
+  IonRefresher,
+  IonRefresherContent,
   IonRow,
   IonText,
+  RefresherEventDetail,
   useIonRouter,
 } from "@ionic/react";
-import { addOutline, ellipsisHorizontal, searchOutline } from "ionicons/icons";
+import {
+  addOutline,
+  ellipsisHorizontal,
+  navigate,
+  searchOutline,
+} from "ionicons/icons";
 import { ChatRoomCard, StoryAvatar } from "../../components";
 import { ChatMembers } from "../../services";
 import "./Home.css";
-import { getToken, storage } from "../../storage";
 
 interface ChatRoom {
   id: number;
@@ -30,7 +37,14 @@ const Home = () => {
   const [members, setMembers] = useState([]);
 
   const navigateHandle = (path: string) => {
-    navigation.push(path, "forward", "replace");
+    navigation.push(path, "forward", "push");
+  };
+
+  const handleRefresh = (event: CustomEvent<RefresherEventDetail>) => {
+    setTimeout(() => {
+      ChatMembers().then((res) => setMembers(res));
+      event.detail.complete();
+    }, 2000);
   };
 
   useEffect(() => {
@@ -47,7 +61,11 @@ const Home = () => {
           className="icon"
         />
       </IonHeader>
-      <IonContent className="ion-content">
+      <IonContent className="ion-content" scrollY={false}>
+        <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
+
         <IonGrid>
           <IonRow className="story-box">
             <IonCard className="story-card">
