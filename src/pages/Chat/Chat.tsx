@@ -55,17 +55,20 @@ const Chat = () => {
     ChatMsgs(id)
       .then((res) => {
         setData(res);
-        setMessages(res?.message_set.reverse());
+        setMessages(res?.message_set?.reverse());
+        console.log(res?.message_set);
       })
       .finally(() => setloading(false));
   }, [id]);
 
   useEffect(() => {
     const messageSocket = new WebSocket(
-      `ws://143.198.26.245:8000/ws/message/${id}/?token=${Token.access}`
+      `wss://api.prounity.uz/ws/message/${id}/?token=${Token?.access}`
     );
+    console.log(Token?.access);
     messageSocket.onmessage = (event) => {
       const receivedMessage = JSON.parse(event.data);
+      console.log(receivedMessage);
       setMessages((prevMessages) => [...prevMessages, receivedMessage]);
       scrollToBottom();
     };
@@ -75,11 +78,13 @@ const Chat = () => {
   }, [id]);
 
   const sendMessage = () => {
+    console.log("begin loading");
     if (sendData.trim() !== "") {
       const chatSocket = new WebSocket(
-        `ws://143.198.26.245:8000/ws/chat/${id}/?token=${Token.access}`
+        `wss://api.prounity.uz/ws/chat/${id}/?token=${Token?.access}`
       );
       chatSocket.onopen = () => {
+        console.log("begin end");
         chatSocket.send(JSON.stringify({ message: sendData }));
         setSendData("");
       };
